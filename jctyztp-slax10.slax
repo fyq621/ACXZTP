@@ -23,7 +23,7 @@ import '/usr/libdata/cscript/import/junos.xsl';
 /* Script parameters                                                  */
 /* ------------------------------------------------------------------ */
 
-param $server = 'ztpserver';
+param $server = '192.168.30.99';
 
 /* ------------------------------------------------------------------ */
 /* Constants                                                          */
