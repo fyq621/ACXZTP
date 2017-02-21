@@ -13,11 +13,10 @@ ns jcs = "http://xml.juniper.net/junos/commit-scripts/1.0";
 ns str extension = "http://exslt.org/strings";
 
 /* private namespace for this script */
-/* ns jctyztp = "http://xml.juniper.com/jcs:syslog ( $SYSLOG, $APPNAME,ztp/1.0"; */
+ns jctyztp = "http://xml.juniper.com/jctyztp/1.0";
+import '../import/junos.xsl';
 
-/* import '../import/junos.xsl'; */
-
-import '/usr/libdata/cscript/import/junos.xsl';
+/*import '/usr/libdata/cscript/import/junos.xsl'; */
 
 /* ------------------------------------------------------------------ */
 /* Script parameters                                                  */
@@ -99,7 +98,7 @@ match / {
   if(not( $conf_retval )) {
     expr jcs:syslog( $SYSLOG, $APPNAME, ": obtaining device config file");
 	var $copy_get = <file-copy> {
-      <source> 'http://' _ $server _ '/juniper/' _ $serialnumber _ '/config';
+      <source> 'http://' _ $server _ '/juniper/' _ $serialnumber _ '/junos1.conf';
       <destination> $JUNOS_CONF;
       <staging-directory> $TMPDIR;
     }
