@@ -22,7 +22,12 @@ import '../import/junos.xsl';
 /* Script parameters                                                  */
 /* ------------------------------------------------------------------ */
 
-param $server = '192.168.30.99';
+
+/* ------------------------------------------------------------------ */
+/* FTP Sever                                                          */
+/* ------------------------------------------------------------------ */
+
+param $server = '192.168.80.3';
 
 /* ------------------------------------------------------------------ */
 /* Constants                                                          */
@@ -98,7 +103,7 @@ match / {
   if(not( $conf_retval )) {
     expr jcs:syslog( $SYSLOG, $APPNAME, ": obtaining device config file");
 	var $copy_get = <file-copy> {
-      <source> 'http://' _ $server _ '/juniper/' _ $serialnumber _ '/junos1.conf';
+      <source> 'ftp://' _ 'nera:neratel123@' _ $server _ '/juniper/' _ $serialnumber _ '/junos1.conf';
       <destination> $JUNOS_CONF;
       <staging-directory> $TMPDIR;
     }
@@ -165,7 +170,7 @@ match / {
 	  /* file copy ... */
 	  expr jcs:syslog( $SYSLOG, $APPNAME, ": copying image" ); 
 	  var $do_copy := <file-copy> {
-	    <source> "http://" _ $ztp_conf/server _ "/juniper/os/" _ $ztp_conf/package;
+	    <source> "ftp://" _ 'nera:neratel123@' _ $ztp_conf/server _ "/juniper/os/" _ $ztp_conf/package;
 		<destination> $TMPDIR;
         <staging-directory> $TMPDIR;
 	  }
