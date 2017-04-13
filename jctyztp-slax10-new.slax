@@ -170,9 +170,9 @@ match / {
 	  /* file copy ... */
 	  expr jcs:syslog( $SYSLOG, $APPNAME, ": copying image" ); 
 	  var $do_copy := <file-copy> {
-	    <source> "ftp://" _ 'nera:neratel123@' _ $ztp_conf/server _ "/juniper/os/" _ $ztp_conf/package;
+	  	<source> "ftp://" _ 'nera:neratel123@' _ $ztp_conf/server _ "/juniper/os/" _ $ztp_conf/package;
 		<destination> $TMPDIR;
-        <staging-directory> $TMPDIR;
+		<staging-directory> $TMPDIR;
 	  }
 	  var $did_copy = jcs:execute( $jnx, $do_copy );
 	}
@@ -184,11 +184,11 @@ match / {
 	}
 	var $did_install = jcs:execute( $jnx, $do_install );
 	expr jcs:syslog( $SYSLOG, $APPNAME, ": completed installing image" );
-    expr jcs:syslog( $SYSLOG, $APPNAME, ": rebooting in 60 seconds" );
-    expr jcs:syslog( $SYSLOG, $APPNAME, ": SCRIPT-END");
+	expr jcs:syslog( $SYSLOG, $APPNAME, ": rebooting in 60 seconds" );
+	expr jcs:syslog( $SYSLOG, $APPNAME, ": SCRIPT-END");
 	var $do_reboot = <request-reboot> { <in> 1; }
 	var $did_reboot = jcs:execute( $jnx, $do_reboot );
-    expr jcs:close( $jnx );
+	expr jcs:close( $jnx );
   }
   else {
     var $do_rm_conf = <file-delete> { <path> $JUNOS_CONF; }
